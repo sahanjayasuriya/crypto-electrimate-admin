@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+    production: true,
+    apiUrl: 'https://electrimate-dev.appspot.com/api/v1/'
 };
