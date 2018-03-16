@@ -21,39 +21,40 @@ import {ErrorPageComponent} from "./error/error-page.component";
 import {ToastrService} from "./shared/toastr/toastr.service";
 import {UserService} from "./services/user.service";
 import {HttpClientModule} from "@angular/common/http";
-import {ModalModule} from "ngx-bootstrap";
 import {LoadingModule} from "ngx-loading";
+import {ModuleService} from "./services/module.service";
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FullLayoutComponent,
-    ContentLayoutComponent,
-    ErrorPageComponent
-  ],
-  imports: [
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    SharedModule,
-    ToastModule.forRoot(),
-    NgbModule.forRoot(),
-    FormsModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireAuthModule,
-    AngularFireDatabaseModule,
-    NgxDatatableModule,
-    HttpClientModule,
-    LoadingModule
-  ],
-  providers: [
-    //Toastr providers
-    {provide: ToastOptions, useClass: CustomOption},
-    ToastrService,
-    UserService
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        FullLayoutComponent,
+        ContentLayoutComponent,
+        ErrorPageComponent
+    ],
+    imports: [
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        SharedModule,
+        ToastModule.forRoot(),
+        NgbModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule,
+        AngularFireModule.initializeApp(FIREBASE_CONFIG),
+        AngularFireAuthModule,
+        AngularFireDatabaseModule,
+        NgxDatatableModule,
+        HttpClientModule,
+        LoadingModule
+    ],
+    providers: [
+        //Toastr providers
+        {provide: ToastOptions, useClass: CustomOption},
+        ToastrService,
+        UserService,
+        ModuleService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

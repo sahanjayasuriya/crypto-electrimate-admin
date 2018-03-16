@@ -1,6 +1,6 @@
-import { Directive } from '@angular/core';
+import {Directive} from '@angular/core';
 
-import { AbstractControl, NG_VALIDATORS } from '@angular/forms';
+import {AbstractControl, NG_VALIDATORS} from '@angular/forms';
 
 @Directive({
     selector: '[phoneNumber][ngModel]',
@@ -10,7 +10,7 @@ import { AbstractControl, NG_VALIDATORS } from '@angular/forms';
 })
 export class PhoneNumberValidator {
     validate(control: AbstractControl): { [validator: string]: string } {
-        const expression = /^(\d{10})$/i;
+        const expression = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
         if (!control.value) { // the [required] validator will check presence, not us
             return null;
         }

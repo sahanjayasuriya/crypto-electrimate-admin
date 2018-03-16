@@ -8,19 +8,19 @@
   <div class="row">
     <div class="col-sm-12">
       <ngx-datatable
-        #table
-        class="bootstrap"
-        [rows]="rows"
-        [columns]="columns"
-        [columnMode]="'standard'"
-        [headerHeight]="50"
-        [footerHeight]="50"
-        [rowHeight]="'50'"
-        [limit]="10"
-        [scrollbarH]="true"
-        [loadingIndicator]="true"
-        [selectionType]="'single'"
-        (select)="onRowSelect($event)">
+              #table
+              class="bootstrap"
+              [rows]="rows"
+              [columns]="columns"
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              [rowHeight]="'50'"
+              [limit]="10"
+              [scrollbarH]="true"
+              [loadingIndicator]="true"
+              [selectionType]="'single'"
+              (select)="onRowSelect($event)">
       </ngx-datatable>
     </div>
   </div>

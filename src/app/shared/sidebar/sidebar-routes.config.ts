@@ -44,4 +44,35 @@ export const ROUTES: RouteInfo[] = [
       },
     ]
   },
+    {
+        path: '/modules',
+        title: 'Module',
+        icon: 'ft-cpu',
+        class: 'has-sub',
+        badge: '',
+        badgeClass: '',
+        isExternalLink: false,
+        submenu: [
+            {
+                path: '/modules/new',
+                title: 'Add Module',
+                icon: '',
+                class: '',
+                badge: '',
+                badgeClass: '',
+                isExternalLink: false,
+                submenu: []
+            },
+            {
+                path: '/modules/list',
+                title: 'Module List',
+                icon: '',
+                class: '',
+                badge: '',
+                badgeClass: '',
+                isExternalLink: false,
+                submenu: []
+            },
+        ]
+    },
 ];

@@ -1,4 +1,4 @@
-import { Routes, RouterModule } from '@angular/router';
+import {Routes} from '@angular/router';
 
 //Route for content layout with sidebar, navbar and footer.
 
@@ -10,5 +10,9 @@ export const Full_ROUTES: Routes = [
   {
     path: 'users',
     loadChildren: './users/users.module#UsersModule'
-  }
+  },
+    {
+        path: 'modules',
+        loadChildren: './modules/modules.module#ModulesModule'
+    }
 ];

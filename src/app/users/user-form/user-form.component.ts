@@ -1,10 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {NgForm} from '@angular/forms';
 import {User} from '../user-metadata';
-import {AngularFireAuth} from 'angularfire2/auth';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {AngularFireDatabase} from 'angularfire2/database';
-import * as alertFunctions from '../../shared/data/sweet-alerts';
 import {UserService} from "../../services/user.service";
 import {ToastrService} from "../../shared/toastr/toastr.service";
 
@@ -37,7 +34,10 @@ export class UserFormComponent implements OnInit {
     password: {
       'required': 'Password cannot be empty',
       'minLength': 'Password should contain more than 6 characters'
-    }
+    },
+      phoneNumber: {
+          pattern: 'Invalid phone number'
+      }
   };
 
   constructor(protected router: Router,
@@ -107,7 +107,7 @@ export class UserFormComponent implements OnInit {
           this.loading = true;
           this.userService.enableUser(user)
             .subscribe((data) => {
-              this.toast.typeSuccess('Updated', 'User Enabled Successfully');
+                this.toast.typeSuccess('Updated', 'User Enabled Successf0ully');
               this.userService.updateTableEventEmitter.emit();
               this.loading = false;
               this.cancel();
