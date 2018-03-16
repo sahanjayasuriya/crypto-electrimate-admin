@@ -1,0 +1,116 @@
+<form (ngSubmit)="submit(f, $event)" (keydown.enter)="$event.preventDefault()" #f="ngForm">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="content-header">Add Module</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+                    <div class="card-body">
+                        <div class="card-block">
+                            <form-text
+                                    required
+                                    maxlength="10"
+                                    pattern="([a-zA-Z0-9]+[.]?)"
+                                    name="moduleCode"
+                                    label="Module Code"
+                                    placeholder="Enter module code"
+                                    [validationMessages]="validationMessages.moduleCode"
+                                    [(ngModel)]="module.moduleCode"
+                            ></form-text>
+                            <form-text
+                                    required
+                                    maxlength="20"
+                                    pattern="([a-zA-Z0-9\s]+[.]?)"
+                                    name="moduleName"
+                                    label="Module Name"
+                                    placeholder="Enter module name"
+                                    [validationMessages]="validationMessages.moduleName"
+                                    [(ngModel)]="module.moduleName"
+                            ></form-text>
+                            <form-text
+                                    required
+                                    maxlength="20"
+                                    pattern="([a-zA-Z0-9\s]+[.]?)"
+                                    name="sensorCount"
+                                    label="Number of Sensors Connected"
+                                    placeholder="Enter module name"
+                                    *ngIf="action !== 'new'"
+                                    [(ngModel)]="module.sensorCount"
+                                    disabled
+                            ></form-text>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit"
+                                class="btn btn-primary btn-raised"
+                                *ngIf="canViewButton('new')"
+                                [disabled]="!f.valid"
+                                (click)="submitAction('save')">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                        <button type="submit"
+                                class="btn btn-primary btn-raised"
+                                *ngIf="canViewButton('list')"
+                                [disabled]="!f.valid"
+                                (click)="submitAction('update')">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                        <button type="button"
+                                class="btn btn-danger btn-raised"
+                                *ngIf="canViewButton('list')"
+                                (click)="deleteModal.show();">
+                            <i class="fa fa-eraser"></i> Delete
+                        </button>
+                        <button type="button"
+                                class="btn btn-warning btn-raised"
+                                *ngIf="canViewButton('enable')"
+                                (click)="enableModal.show();">
+                            <i class="fa fa-toggle-on"></i> Enable
+                        </button>
+                        <button type="button"
+                                class="btn btn-warning btn-raised"
+                                *ngIf="canViewButton('disable')"
+                                (click)="disableModel.show();">
+                            <i class="fa fa-toggle-off"></i> Disable
+                        </button>
+                        <button type="reset" class="btn btn-secondary btn-raised" (click)="cancel()"><i
+                                class="fa fa-ban"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-modal
+            #deleteModal="app-modal"
+            type="danger"
+            title="Are you sure?"
+            content="Do you really want to delete this?"
+            cancelBtnText="No, do not delete"
+            confirmBtnText="Yes, delete it!"
+            (onConfirm)="submitAction('delete')"
+    ></app-modal>
+    <app-modal
+            #disableModel="app-modal"
+            type="warning"
+            title="Are you sure?"
+            content="Do you really want to disable this?"
+            cancelBtnText="No, do not disable"
+            confirmBtnText="Yes, disable it!"
+            (onConfirm)="submitAction('disable')"
+    ></app-modal>
+    <app-modal
+            #enableModal="app-modal"
+            type="warning"
+            title="Are you sure?"
+            content="Do you really want to enable this?"
+            cancelBtnText="No, do not enable"
+            confirmBtnText="Yes, enable it!"
+            (onConfirm)="submitAction('enable')"
+    ></app-modal>
+</form>
