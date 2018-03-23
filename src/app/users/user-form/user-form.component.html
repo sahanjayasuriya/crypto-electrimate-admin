@@ -52,6 +52,36 @@
                                     [(ngModel)]="user.password"
                                     required
                             ></form-password>
+                            <form-text
+                                    required
+                                    maxlength="10"
+                                    pattern="([a-zA-Z0-9]+[.]?)"
+                                    name="moduleCode"
+                                    label="Module Code"
+                                    placeholder="Enter module code"
+                                    [validationMessages]="validationMessages.moduleCode"
+                                    [(ngModel)]="userModule.moduleCode"
+                            ></form-text>
+                            <form-text
+                                    maxlength="20"
+                                    pattern="([a-zA-Z0-9\s]+[.]?)"
+                                    name="moduleName"
+                                    label="Module Name"
+                                    placeholder="Enter module name"
+                                    [validationMessages]="validationMessages.moduleName"
+                                    [(ngModel)]="userModule.moduleName"
+                            ></form-text>
+                            <form-text
+                                    required
+                                    maxlength="20"
+                                    pattern="([a-zA-Z0-9\s]+[.]?)"
+                                    name="sensorCount"
+                                    label="Number of Sensors Connected"
+                                    placeholder="Enter module name"
+                                    *ngIf="action !== 'new'"
+                                    [(ngModel)]="userModule.sensorCount"
+                                    disabled
+                            ></form-text>
                         </div>
                     </div>
                     <div class="card-footer">
@@ -96,31 +126,32 @@
             </div>
         </div>
     </div>
-    <app-modal
-            #deleteModal="app-modal"
-            type="danger"
-            title="Are you sure?"
-            content="Do you really want to delete this?"
-            cancelBtnText="No, do not delete"
-            confirmBtnText="Yes, delete it!"
-            (onConfirm)="submitAction('delete')"
-    ></app-modal>
-    <app-modal
-            #disableModel="app-modal"
-            type="warning"
-            title="Are you sure?"
-            content="Do you really want to disable this?"
-            cancelBtnText="No, do not disable"
-            confirmBtnText="Yes, disable it!"
-            (onConfirm)="submitAction('disable')"
-    ></app-modal>
-    <app-modal
-            #enableModal="app-modal"
-            type="warning"
-            title="Are you sure?"
-            content="Do you really want to enable this?"
-            cancelBtnText="No, do not enable"
-            confirmBtnText="Yes, enable it!"
-            (onConfirm)="submitAction('enable')"
-    ></app-modal>
+
 </form>
+<app-modal
+        #deleteModal="app-modal"
+        type="danger"
+        title="Are you sure?"
+        content="Do you really want to delete this?"
+        cancelBtnText="No, do not delete"
+        confirmBtnText="Yes, delete it!"
+        (onConfirm)="submitAction('delete')"
+></app-modal>
+<app-modal
+        #disableModel="app-modal"
+        type="warning"
+        title="Are you sure?"
+        content="Do you really want to disable this?"
+        cancelBtnText="No, do not disable"
+        confirmBtnText="Yes, disable it!"
+        (onConfirm)="submitAction('disable')"
+></app-modal>
+<app-modal
+        #enableModal="app-modal"
+        type="warning"
+        title="Are you sure?"
+        content="Do you really want to enable this?"
+        cancelBtnText="No, do not enable"
+        confirmBtnText="Yes, enable it!"
+        (onConfirm)="submitAction('enable')"
+></app-modal>

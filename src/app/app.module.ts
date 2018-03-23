@@ -22,7 +22,7 @@ import {ToastrService} from "./shared/toastr/toastr.service";
 import {UserService} from "./services/user.service";
 import {HttpClientModule} from "@angular/common/http";
 import {LoadingModule} from "ngx-loading";
-import {ModuleService} from "./services/module.service";
+import {ModuleService} from "./services/user-module.service";
 
 
 @NgModule({

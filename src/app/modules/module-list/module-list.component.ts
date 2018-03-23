@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {UserService} from "../../services/user.service";
 import {Subscriber} from "rxjs/Subscriber";
+import {ModuleService} from "../../services/user-module.service";
 
 @Component({
     selector: 'app-module-list',
@@ -16,12 +16,15 @@ export class ModuleListComponent implements OnInit, OnDestroy {
     title: string;
     @ViewChild('notAvailableTmpl')
     private notAvailableTmpl: TemplateRef<any>;
+    @ViewChild('falseTrueTmpl')
+    private falseTrueTmpl: TemplateRef<any>;
+
     private tableUpdaterSubscriber: Subscriber<void>;
     private action: string;
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
-                private userService: UserService) {
+                private moduleService: ModuleService) {
 
     }
 
@@ -29,7 +32,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
         this.route.url.subscribe((url) => {
             this.setAction(url[url.length - 1].path)
         });
-        this.tableUpdaterSubscriber = this.userService.updateTableEventEmitter.subscribe(() => {
+        this.tableUpdaterSubscriber = this.moduleService.updateTableEventEmitter.subscribe(() => {
             this.setAction(this.route.snapshot.url[this.route.snapshot.url.length - 1].path);
         });
     }
@@ -47,10 +50,14 @@ export class ModuleListComponent implements OnInit, OnDestroy {
         if (this.action) {
             this.loadData();
             this.columns = [
+
                 {
-                    prop: 'displayName',
-                    name: 'Display Name',
-                    cellTemplate: this.notAvailableTmpl
+                    prop: 'moduleCode',
+                    name: 'Display Name'
+                },
+                {
+                    prop: 'moduleName',
+                    name: 'Display Name'
                 },
                 {
                     prop: 'email',
@@ -60,13 +67,18 @@ export class ModuleListComponent implements OnInit, OnDestroy {
                     prop: 'phoneNumber',
                     name: 'Phone Number',
                     cellTemplate: this.notAvailableTmpl
+                },
+                {
+                    prop: 'enabled',
+                    name: 'Module Enabled',
+                    cellTemplate: this.falseTrueTmpl
                 }
             ];
         }
     }
 
     private loadData() {
-        this.userService.getUserList()
+        this.moduleService.getModuleList()
             .subscribe((data) => {
                 this.temp = data;
                 this.rows = this.temp;

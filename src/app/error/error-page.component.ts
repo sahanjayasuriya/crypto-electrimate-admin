@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-error-page',
@@ -9,4 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class ErrorPageComponent {
     currentDate: any = new Date();
 
+    constructor(protected router: Router,
+                protected route: ActivatedRoute) {
+    }
+
+    goHome() {
+        this.router.navigate(["/dashboard"]);
+    }
 }

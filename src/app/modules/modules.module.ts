@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SharedModule} from "../shared/shared.module";
 import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 import {LoadingModule} from "ngx-loading";
+import {NgxQRCodeModule} from "ngx-qrcode3";
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import {LoadingModule} from "ngx-loading";
         AppFormsModule,
         FormsModule,
         SharedModule,
-        LoadingModule
+        LoadingModule,
+        NgxQRCodeModule
     ],
     declarations: [
         ModulesComponent,

@@ -7,7 +7,7 @@ export class UserService extends BaseService{
 
   private _updateTableEventEmitter = new EventEmitter<void>();
 
-  getUser(id: number) {
+    getUser(id: string) {
     return this.get('user/get?id=' + id)
       .map((response) => {
         return response;
