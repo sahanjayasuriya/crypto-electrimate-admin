@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {BaseService} from "./base.service";
-import {Module} from "../modules/module-metadata";
+import {Modules} from "../modules/module-metadata";
 
 @Injectable()
 export class InventoryService extends BaseService {
@@ -11,32 +11,25 @@ export class InventoryService extends BaseService {
         return this._updateTableEventEmitter;
     }
 
-    getModule(id: string) {
-        return this.get('inventory/module/get?id=' + id)
-            .map((response) => {
-                return response;
-            });
-    }
-
-    getModuleList() {
-        return this.get('inventory/module/get/list')
+    getModulesList(batch: number) {
+        return this.get('inventory/modules/get/list?batch=' + batch)
             .map((response) => {
                 return response;
             })
     }
 
-    saveModule(module: Module) {
-        return this.post('inventory/module', module)
+    saveModules(modules: Modules) {
+        return this.post('inventory/modules', modules)
             .map((response) => {
                 return response;
             });
     }
 
-    deleteModule(module: Module) {
-        return this.delete('inventory/module?id=' + module.id)
+    getBatches() {
+        return this.get('inventory/modules/get/batches')
             .map((response) => {
                 return response;
-            });
+            })
     }
 
 }

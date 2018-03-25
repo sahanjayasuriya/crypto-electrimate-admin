@@ -1,7 +1,9 @@
-import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscriber} from "rxjs/Subscriber";
-import {ModuleService} from "../../services/user-module.service";
+import {InventoryService} from "../../services/inventory.service";
+import {IOption} from "ng-select";
+import jsPDF = require("jspdf");
 
 @Component({
     selector: 'app-module-list',
@@ -10,21 +12,28 @@ import {ModuleService} from "../../services/user-module.service";
 })
 export class ModuleListComponent implements OnInit, OnDestroy {
 
+    @ViewChild('printable')
+    content: ElementRef;
+
     rows = [];
     temp = [];
     columns = [];
+    batches: Array<IOption>;
+    selctedBatch: string;
     title: string;
-    @ViewChild('notAvailableTmpl')
-    private notAvailableTmpl: TemplateRef<any>;
-    @ViewChild('falseTrueTmpl')
-    private falseTrueTmpl: TemplateRef<any>;
+
+    validationMessages = {
+        batches: {
+            'required': 'Batch Number is required'
+        }
+    };
 
     private tableUpdaterSubscriber: Subscriber<void>;
     private action: string;
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
-                private moduleService: ModuleService) {
+                private inventoryService: InventoryService) {
 
     }
 
@@ -32,9 +41,17 @@ export class ModuleListComponent implements OnInit, OnDestroy {
         this.route.url.subscribe((url) => {
             this.setAction(url[url.length - 1].path)
         });
-        this.tableUpdaterSubscriber = this.moduleService.updateTableEventEmitter.subscribe(() => {
+        this.tableUpdaterSubscriber = this.inventoryService.updateTableEventEmitter.subscribe(() => {
             this.setAction(this.route.snapshot.url[this.route.snapshot.url.length - 1].path);
         });
+        this.inventoryService.getBatches()
+            .subscribe((batches) => {
+                const list: Array<IOption> = [];
+                batches.forEach((batch) => {
+                    list.push({value: '' + batch, label: 'Batch ' + batch})
+                });
+                this.batches = list;
+            });
     }
 
     ngOnDestroy(): void {
@@ -45,6 +62,33 @@ export class ModuleListComponent implements OnInit, OnDestroy {
         this.router.navigate([selectedRow.selected[0].id], {relativeTo: this.route});
     }
 
+    batchChanged(event) {
+        this.inventoryService.getModulesList(event.value)
+            .subscribe((data) => {
+                this.temp = data;
+                this.rows = this.temp;
+            });
+    }
+
+    generatePdf() {
+        let doc = new jsPDF();
+
+        let specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            }
+        };
+
+        let content = this.content.nativeElement;
+
+        doc.fromHTML(content.innerHTML, 15, 15, {
+            'width': 190,
+            'elementHandlers': specialElementHandlers
+        });
+
+        doc.save('electrimate-module-qr-batch-' + this.rows[0].batchNumber + '.pdf');
+    }
+
     private setAction(action) {
         this.action = action;
         if (this.action) {
@@ -52,38 +96,18 @@ export class ModuleListComponent implements OnInit, OnDestroy {
             this.columns = [
 
                 {
-                    prop: 'moduleCode',
-                    name: 'Display Name'
+                    prop: 'batchNumber',
+                    name: 'Batch Number'
                 },
                 {
-                    prop: 'moduleName',
-                    name: 'Display Name'
-                },
-                {
-                    prop: 'email',
-                    name: 'Email'
-                },
-                {
-                    prop: 'phoneNumber',
-                    name: 'Phone Number',
-                    cellTemplate: this.notAvailableTmpl
-                },
-                {
-                    prop: 'enabled',
-                    name: 'Module Enabled',
-                    cellTemplate: this.falseTrueTmpl
+                    prop: 'id',
+                    name: 'Module ID'
                 }
             ];
         }
     }
 
     private loadData() {
-        this.moduleService.getModuleList()
-            .subscribe((data) => {
-                this.temp = data;
-                this.rows = this.temp;
-                console.log(this.rows);
-            });
         this.title = 'Select User to View Module Details';
     }
 }

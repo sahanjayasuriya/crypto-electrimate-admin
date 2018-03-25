@@ -23,6 +23,7 @@ import {UserService} from "./services/user.service";
 import {HttpClientModule} from "@angular/common/http";
 import {LoadingModule} from "ngx-loading";
 import {ModuleService} from "./services/user-module.service";
+import {InventoryService} from "./services/inventory.service";
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import {ModuleService} from "./services/user-module.service";
         {provide: ToastOptions, useClass: CustomOption},
         ToastrService,
         UserService,
-        ModuleService
+        ModuleService,
+        InventoryService
     ],
     bootstrap: [AppComponent]
 })

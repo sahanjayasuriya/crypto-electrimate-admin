@@ -11,38 +11,31 @@
                     <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
                     <div class="card-body">
                         <div class="card-block">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <form-text
-                                            required
-                                            maxlength="50"
-                                            name="moduleCode"
-                                            label="Module Code"
-                                            placeholder="Enter module code"
-                                            [validationMessages]="validationMessages.moduleCode"
-                                            [(ngModel)]="moduleCode"
-                                    ></form-text>
-                                </div>
-                                <div class="col-md-6">
-                                    <ngx-qrcode qrc-element-type="img" [qrc-value]="moduleCode" [qrc-version]=3
-                                                [qrc-correction-level]="'L'"></ngx-qrcode>
-                                </div>
-                            </div>
+                            <form-number
+                                    required
+                                    maxlength="4"
+                                    name="batchNumber"
+                                    label="Batch Number"
+                                    placeholder="Enter batch number"
+                                    [validationMessages]="validationMessages.batchNumber"
+                                    [(ngModel)]="modules.batchNumber"
+                            ></form-number>
+                            <form-number
+                                    required
+                                    maxlength="6"
+                                    name="moduleCount"
+                                    label="Number of Modules"
+                                    placeholder="Enter number of modules"
+                                    [validationMessages]="validationMessages.moduleCount"
+                                    [(ngModel)]="modules.moduleCount"
+                            ></form-number>
                         </div>
                     </div>
                     <div class="card-footer">
                         <button type="submit"
                                 class="btn btn-primary btn-raised"
-                                *ngIf="canViewButton('new')"
-                                [disabled]="!f.valid"
-                                (click)="submitAction('save')">
+                                [disabled]="!f.valid">
                             <i class="fa fa-save"></i> Save
-                        </button>
-                        <button type="button"
-                                class="btn btn-danger btn-raised"
-                                *ngIf="canViewButton('list')"
-                                (click)="deleteModal.show();">
-                            <i class="fa fa-eraser"></i> Delete
                         </button>
                         <button type="reset" class="btn btn-secondary btn-raised" (click)="cancel()"><i
                                 class="fa fa-ban"></i>
@@ -53,13 +46,4 @@
             </div>
         </div>
     </div>
-    <app-modal
-            #deleteModal="app-modal"
-            type="danger"
-            title="Are you sure?"
-            content="Do you really want to delete this?"
-            cancelBtnText="No, do not delete"
-            confirmBtnText="Yes, delete it!"
-            (onConfirm)="submitAction('delete')"
-    ></app-modal>
 </form>

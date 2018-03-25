@@ -1,4 +1,4 @@
-export class Module {
-    id: string;
-    moduleCode: string;
+export class Modules {
+    batchNumber: number;
+    moduleCount: number;
 }

@@ -6,6 +6,28 @@
             <div class="content-header mt-0" style="font-size: medium">Select a user to view modules</div>
         </div>
     </div>
+    <div class="row mt-4 mb-2">
+        <div class="col-md-8">
+            <form-select
+                    name="batch"
+                    label="Batch Number"
+                    placeholder="Select a Batch Number"
+                    [options]="batches"
+                    [validationMessages]="validationMessages.batches"
+                    [(ngModel)]="selctedBatch"
+                    (itemSelected)="batchChanged($event)"
+                    required
+            ></form-select>
+        </div>
+        <div class="col-md-4" style="text-align: right; padding-top: 1.6rem">
+            <button type="submit"
+                    class="btn btn-primary btn-raised"
+                    [disabled]="selctedBatch == undefined"
+                    (click)="generatePdf()">
+                <i class="fa fa-print"></i> Print
+            </button>
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-12">
             <ngx-datatable
@@ -20,31 +42,19 @@
                     [limit]="10"
                     [scrollbarH]="true"
                     [loadingIndicator]="true"
-                    [selectionType]="'single'"
-                    (select)="onRowSelect($event)">
+                    [selectionType]="'single'">
             </ngx-datatable>
         </div>
     </div>
-
-    <ng-template #dateTimeTmpl let-value="value" ngx-datatable-cell-template>
-        <span *ngIf="value===0" class="badge badge-warning">Not Available</span>
-        <span *ngIf="value!==0">{{ value | date:'yyyy-MM-dd hh:mm:ss' }}</span>
-    </ng-template>
-    <ng-template #trueFalseTmpl let-value="value" ngx-datatable-cell-template>
-        <span *ngIf="value == true" class="badge badge-warning">Yes</span>
-        <span *ngIf="value == false" class="badge badge-success">No</span>
-    </ng-template>
-    <ng-template #falseTrueTmpl let-value="value" ngx-datatable-cell-template>
-        <span *ngIf="value == true" class="badge badge-success">Yes</span>
-        <span *ngIf="value == false" class="badge badge-warning">No</span>
-    </ng-template>
-    <ng-template #userTypeTmpl let-value="value" ngx-datatable-cell-template>
-        <span *ngIf="value == 'HOUSE-OWNER'">House Owner</span>
-        <span *ngIf="value == 'ELECTRICITY-USER'">Electricity User</span>
-    </ng-template>
-    <ng-template #notAvailableTmpl let-value="value" ngx-datatable-cell-template>
-        <span *ngIf="!value" class="badge badge-warning">Not Available</span>
-        <span *ngIf="value!=undefined">{{ value }}</span>
-    </ng-template>
-
+</section>
+<section *ngIf="rows.length != 0">
+    <div id="printable" class="col-md-12 mt-4" #printable>
+        <h3>QR Codes For Batch {{rows[0].batchNumber}}</h3>
+        <div class="row">
+            <div class="col-md-2" *ngFor="let module of rows">
+                <ngx-qrcode [qrc-value]="module.id" [qrc-version]=3 [qrc-correction-level]="'L'"></ngx-qrcode>
+                <label style="font-size: 12px">{{module.id}}</label>
+            </div>
+        </div>
+    </div>
 </section>

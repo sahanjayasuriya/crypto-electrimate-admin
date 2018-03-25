@@ -2,8 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {ToastrService} from "../../shared/toastr/toastr.service";
-import {ModuleService} from "../../services/user-module.service";
-import {UserService} from "../../services/user.service";
+import {Modules} from "../module-metadata";
+import {InventoryService} from "../../services/inventory.service";
 
 @Component({
     selector: 'app-module-form',
@@ -14,14 +14,16 @@ export class ModuleFormComponent implements OnInit {
 
     title: string;
     id: number;
-    action: string;
-    submitActionName: string;
     loading: boolean = false;
-    moduleCode: string;
+    modules: Modules;
     validationMessages = {
-        moduleCode: {
-            'required': 'Module Code cannot be empty',
-            'maxlength': 'Module Code cannot contain more than 50 characters'
+        batchNumber: {
+            'required': 'Batch Number cannot be empty',
+            'maxlength': 'Batch Number cannot contain more than 4 characters'
+        },
+        moduleCount: {
+            'required': 'Number of Modules cannot be empty',
+            'maxlength': 'Number of Modules cannot contain more than 6 characters'
         }
     };
     @ViewChild('f')
@@ -29,43 +31,30 @@ export class ModuleFormComponent implements OnInit {
 
     constructor(protected router: Router,
                 protected route: ActivatedRoute,
-                private moduleService: ModuleService,
-                private userService: UserService,
+                private inventoryService: InventoryService,
                 private toast: ToastrService) {
     }
 
     ngOnInit() {
+        this.modules = new Modules();
         this.route.params.subscribe((params: Params) => {
-            const parentUrl = this.route.parent.snapshot.url[this.route.parent.snapshot.url.length - 1];
-            const action: string = parentUrl ? parentUrl.path : 'new';
-            this.setAction(params['id'], action);
         });
     }
 
     submit(form, event) {
-
-    }
-
-    canViewButton(action) {
-        return this.action === action;
+        this.loading = true;
+        const modules = this.modules;
+        this.inventoryService.saveModules(modules)
+            .subscribe((data) => {
+                console.log(data);
+                this.toast.typeSuccess('Saved', 'Modules Saved Successfully');
+                this.loading = false;
+                this.form.reset();
+            });
     }
 
     cancel() {
         this.router.navigate(['../'], {relativeTo: this.route})
-    }
-
-    submitAction(action: string) {
-        this.submitActionName = action;
-    }
-
-    setAction(id: number, action: string) {
-        this.id = id;
-        this.action = action;
-        this.loadData();
-    }
-
-    private loadData() {
-
     }
 
 }
