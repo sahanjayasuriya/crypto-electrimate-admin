@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {User} from '../user-metadata';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {UserService} from "../../services/user.service";
-import {ToastrService} from "../../shared/toastr/toastr.service";
-import {UserModule} from "../user-module.metadata";
-import {ModuleService} from "../../services/user-module.service";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ModuleService } from "../../services/user-module.service";
+import { UserService } from "../../services/user.service";
+import { ToastrService } from "../../shared/toastr/toastr.service";
+import { User } from '../user-metadata';
+import { UserModule } from "../user-module.metadata";
 
 @Component({
     selector: 'app-user-form',
@@ -40,7 +40,7 @@ export class UserFormComponent implements OnInit {
         },
         moduleCode: {
             'required': 'Module Code cannot be empty',
-            'maxlength': 'Module Code cannot contain more than 10 characters',
+            'maxlength': 'Module Code cannot contain more than 20 characters',
             'pattern': 'Module Code cannot contain any special characters or spaces'
         },
         moduleName: {
