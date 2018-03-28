@@ -2,7 +2,7 @@
 <section id="paging" class="mb-3">
     <div class="row">
         <div class="col-12">
-            <div class="content-header">Modules List</div>
+            <div class="content-header">Sensors List</div>
         </div>
     </div>
     <div class="row mt-4 mb-2">
@@ -50,9 +50,9 @@
     <div id="printable" class="col-md-12 mt-4" #printable>
         <h3>QR Codes For Batch {{rows[0].batchNumber}}</h3>
         <div class="row">
-            <div class="col-md-2" *ngFor="let module of rows">
-                <ngx-qrcode [qrc-value]="module.id" [qrc-version]=3 [qrc-correction-level]="'L'"></ngx-qrcode>
-                <label style="font-size: 12px">{{module.id}}</label>
+            <div class="col-md-2" *ngFor="let sensor of rows">
+                <ngx-qrcode [qrc-value]="sensor.id" [qrc-version]=3 [qrc-correction-level]="'L'"></ngx-qrcode>
+                <label style="font-size: 12px">{{sensor.id}}</label>
             </div>
         </div>
     </div>

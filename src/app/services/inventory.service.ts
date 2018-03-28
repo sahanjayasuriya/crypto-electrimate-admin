@@ -1,6 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {BaseService} from "./base.service";
 import {Modules} from "../modules/module-metadata";
+import {Sensors} from "../sensors/sensor-metadata";
 
 @Injectable()
 export class InventoryService extends BaseService {
@@ -25,8 +26,29 @@ export class InventoryService extends BaseService {
             });
     }
 
-    getBatches() {
+    getModuleBatches() {
         return this.get('inventory/modules/get/batches')
+            .map((response) => {
+                return response;
+            })
+    }
+
+    getSensorsList(batch: number) {
+        return this.get('inventory/sensors/get/list?batch=' + batch)
+            .map((response) => {
+                return response;
+            })
+    }
+
+    saveSensors(sensors: Sensors) {
+        return this.post('inventory/sensors', sensors)
+            .map((response) => {
+                return response;
+            });
+    }
+
+    getSensorBatches() {
+        return this.get('inventory/sensors/get/batches')
             .map((response) => {
                 return response;
             })

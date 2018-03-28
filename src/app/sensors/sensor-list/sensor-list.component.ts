@@ -1,16 +1,16 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {Subscriber} from "rxjs/Subscriber";
 import {InventoryService} from "../../services/inventory.service";
+import {Subscriber} from "rxjs/Subscriber";
+import {ActivatedRoute, Router} from "@angular/router";
 import {IOption} from "ng-select";
 import jsPDF = require("jspdf");
 
 @Component({
-    selector: 'app-module-list',
-    templateUrl: './module-list.component.html',
-    styleUrls: ['./module-list.component.scss']
+    selector: 'app-sensor-list',
+    templateUrl: './sensor-list.component.html',
+    styleUrls: ['./sensor-list.component.scss']
 })
-export class ModuleListComponent implements OnInit, OnDestroy {
+export class SensorListComponent implements OnInit, OnDestroy {
 
     @ViewChild('printable')
     content: ElementRef;
@@ -44,7 +44,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
         this.tableUpdaterSubscriber = this.inventoryService.updateTableEventEmitter.subscribe(() => {
             this.setAction(this.route.snapshot.url[this.route.snapshot.url.length - 1].path);
         });
-        this.inventoryService.getModuleBatches()
+        this.inventoryService.getSensorBatches()
             .subscribe((batches) => {
                 const list: Array<IOption> = [];
                 batches.forEach((batch) => {
@@ -63,7 +63,7 @@ export class ModuleListComponent implements OnInit, OnDestroy {
     }
 
     batchChanged(event) {
-        this.inventoryService.getModulesList(event.value)
+        this.inventoryService.getSensorsList(event.value)
             .subscribe((data) => {
                 this.temp = data;
                 this.rows = this.temp;
@@ -92,7 +92,6 @@ export class ModuleListComponent implements OnInit, OnDestroy {
     private setAction(action) {
         this.action = action;
         if (this.action) {
-            this.loadData();
             this.columns = [
 
                 {
@@ -101,13 +100,10 @@ export class ModuleListComponent implements OnInit, OnDestroy {
                 },
                 {
                     prop: 'id',
-                    name: 'Module ID'
+                    name: 'Sensor ID'
                 }
             ];
         }
     }
 
-    private loadData() {
-        this.title = 'Select User to View Module Details';
-    }
 }
