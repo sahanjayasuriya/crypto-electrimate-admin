@@ -1,6 +1,6 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { UserModule } from '../users/user-module.metadata';
-import { BaseService } from "./base.service";
+import {EventEmitter, Injectable} from '@angular/core';
+import {BaseService} from "./base.service";
+import {UserModule} from "../users/user-module.metadata";
 
 @Injectable()
 export class ModuleService extends BaseService {
