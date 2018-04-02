@@ -1,49 +1,49 @@
 <router-outlet></router-outlet>
 <section id="paging" class="mb-3">
-  <div class="row">
-    <div class="col-12">
-      <div class="content-header">Users List</div>
+    <div class="row">
+        <div class="col-12">
+            <div class="content-header">Users List</div>
+        </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <ngx-datatable
-              #table
-              class="bootstrap"
-              [rows]="rows"
-              [columns]="columns"
-              [columnMode]="'force'"
-              [headerHeight]="50"
-              [footerHeight]="50"
-              [rowHeight]="'50'"
-              [limit]="10"
-              [scrollbarH]="true"
-              [loadingIndicator]="true"
-              [selectionType]="'single'"
-              (select)="onRowSelect($event)">
-      </ngx-datatable>
+    <div class="row">
+        <div class="col-sm-12">
+            <ngx-datatable
+                    #table
+                    class="bootstrap"
+                    [rows]="rows"
+                    [columns]="columns"
+                    [columnMode]="'force'"
+                    [headerHeight]="50"
+                    [footerHeight]="50"
+                    [rowHeight]="'50'"
+                    [limit]="10"
+                    [scrollbarH]="true"
+                    [loadingIndicator]="true"
+                    [selectionType]="'single'"
+                    (select)="onRowSelect($event)">
+            </ngx-datatable>
+        </div>
     </div>
-  </div>
 
-  <ng-template #dateTimeTmpl let-value="value" ngx-datatable-cell-template>
-    <span *ngIf="value===0" class="badge badge-warning">Not Available</span>
-    <span *ngIf="value!==0">{{ value | date:'yyyy-MM-dd hh:mm:ss' }}</span>
-  </ng-template>
-  <ng-template #trueFalseTmpl let-value="value" ngx-datatable-cell-template>
-    <span *ngIf="value == true" class="badge badge-warning">Yes</span>
-    <span *ngIf="value == false" class="badge badge-success">No</span>
-  </ng-template>
-  <ng-template #falseTrueTmpl let-value="value" ngx-datatable-cell-template>
-    <span *ngIf="value == true" class="badge badge-success">Yes</span>
-    <span *ngIf="value == false" class="badge badge-warning">No</span>
-  </ng-template>
-  <ng-template #userTypeTmpl let-value="value" ngx-datatable-cell-template>
-    <span *ngIf="value == 'HOUSE-OWNER'">House Owner</span>
-    <span *ngIf="value == 'ELECTRICITY-USER'">Electricity User</span>
-  </ng-template>
-  <ng-template #notAvailableTmpl let-value="value" ngx-datatable-cell-template>
-    <span *ngIf="!value" class="badge badge-warning">Not Available</span>
-    <span *ngIf="value!=undefined">{{ value }}</span>
-  </ng-template>
+    <ng-template #dateTimeTmpl let-value="value" ngx-datatable-cell-template>
+        <span *ngIf="value===0" class="badge badge-warning">Not Available</span>
+        <span *ngIf="value!==0">{{ value | date:'yyyy-MM-dd hh:mm:ss' }}</span>
+    </ng-template>
+    <ng-template #trueFalseTmpl let-value="value" ngx-datatable-cell-template>
+        <span *ngIf="value == true" class="badge badge-warning">Yes</span>
+        <span *ngIf="value == false" class="badge badge-success">No</span>
+    </ng-template>
+    <ng-template #falseTrueTmpl let-value="value" ngx-datatable-cell-template>
+        <span *ngIf="value == true" class="badge badge-success">Yes</span>
+        <span *ngIf="value == false" class="badge badge-warning">No</span>
+    </ng-template>
+    <ng-template #userTypeTmpl let-value="value" ngx-datatable-cell-template>
+        <span *ngIf="value == 'HOUSE-OWNER'">House Owner</span>
+        <span *ngIf="value == 'ELECTRICITY-USER'">Electricity User</span>
+    </ng-template>
+    <ng-template #notAvailableTmpl let-value="value" ngx-datatable-cell-template>
+        <span *ngIf="!value" class="badge badge-warning">Not Available</span>
+        <span *ngIf="value!=undefined">{{ value }}</span>
+    </ng-template>
 
 </section>

@@ -35,12 +35,14 @@ export class ModuleFormComponent implements OnInit {
                 private toast: ToastrService) {
     }
 
+    //First function when loading the module-form
     ngOnInit() {
         this.modules = new Modules();
         this.route.params.subscribe((params: Params) => {
         });
     }
 
+    //Add modules
     submit(form, event) {
         this.loading = true;
         const modules = this.modules;
@@ -53,6 +55,7 @@ export class ModuleFormComponent implements OnInit {
             });
     }
 
+    //Cancel adding modules
     cancel() {
         this.router.navigate(['../'], {relativeTo: this.route})
     }

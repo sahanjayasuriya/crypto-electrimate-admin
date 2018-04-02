@@ -7,6 +7,7 @@ export class UserService extends BaseService{
 
   private _updateTableEventEmitter = new EventEmitter<void>();
 
+    //Get logged in user
     getUser(id: string) {
     return this.get('user/get?id=' + id)
       .map((response) => {
@@ -14,6 +15,7 @@ export class UserService extends BaseService{
       });
   }
 
+  //Get user list
   getUserList() {
     return this.get('user/get/list')
       .map((response) => {
@@ -21,6 +23,7 @@ export class UserService extends BaseService{
       })
   }
 
+  //Save user
   saveUser(user: User) {
     return this.post('user', user)
       .map((response) => {
@@ -28,6 +31,7 @@ export class UserService extends BaseService{
       });
   }
 
+  //Update User
   updateUser(user: User) {
     return this.put('user', user)
       .map((response) => {
@@ -35,6 +39,7 @@ export class UserService extends BaseService{
       });
   }
 
+  //Disable user
   disableUser(user: User) {
     return this.put('user/update/disable', user)
       .map((response) => {
@@ -42,6 +47,7 @@ export class UserService extends BaseService{
       });
   }
 
+  //Enable User
   enableUser(user: User) {
     return this.put('user/update/enable', user)
       .map((response) => {
@@ -49,13 +55,7 @@ export class UserService extends BaseService{
       });
   }
 
-  resetPassword(user: User) {
-    return this.post('user/password/reset', user)
-      .map((response) => {
-        return response;
-      });
-  }
-
+  //Delete User
   deleteUser(user: User) {
     return this.delete('user?id=' + user.id)
       .map((response) => {

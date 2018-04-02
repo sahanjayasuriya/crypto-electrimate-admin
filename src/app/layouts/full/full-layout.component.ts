@@ -19,9 +19,6 @@ export class FullLayoutComponent implements OnInit {
     }
 
     ngOnInit() {
-        // if (this.angularFireAuth.auth.currentUser == null) {
-        //   this.router.navigate(['/login']);
-        // }
         //sidebar toggle event listner
         this.elementRef.nativeElement.querySelector('#sidebarToggle')
             .addEventListener('click', this.onClick.bind(this));

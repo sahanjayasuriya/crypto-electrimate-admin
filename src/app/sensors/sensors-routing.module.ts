@@ -6,6 +6,7 @@ import {SensorsComponent} from "./sensors.component";
 
 const routes: Routes = [
     {
+        //Add paths to the Sensors
         path: '',
         component: SensorsComponent,
         data: {
@@ -13,6 +14,7 @@ const routes: Routes = [
         },
         children: [
             {
+                //Add sub path to the Add New Sensor
                 path: 'new',
                 component: SensorFormComponent,
                 data: {
@@ -20,6 +22,7 @@ const routes: Routes = [
                 },
             },
             {
+                //Add sub pathto the Sensors list
                 path: 'list',
                 component: SensorListComponent,
                 data: {

@@ -11,6 +11,7 @@ export class ModuleService extends BaseService {
         return this._updateTableEventEmitter;
     }
 
+    //Get Module for the relevant user
     getModule(id: string) {
         return this.get('module/get?id=' + id)
             .map((response) => {
@@ -18,13 +19,7 @@ export class ModuleService extends BaseService {
             });
     }
 
-    getModuleList() {
-        return this.get('module/get/list')
-            .map((response) => {
-                return response;
-            })
-    }
-
+    //Save Modules
     saveModule(module: UserModule) {
         return this.post('module', module)
             .map((response) => {
@@ -32,6 +27,7 @@ export class ModuleService extends BaseService {
             });
     }
 
+    //Update Module
     updateModule(module: UserModule) {
         return this.put('module', module)
             .map((response) => {
@@ -39,20 +35,7 @@ export class ModuleService extends BaseService {
             });
     }
 
-    disableModule(module: UserModule) {
-        return this.put('module/update/disable', module)
-            .map((response) => {
-                return response;
-            });
-    }
-
-    enableModule(module: UserModule) {
-        return this.put('module/update/enable', module)
-            .map((response) => {
-                return response;
-            });
-    }
-
+    //Delete Module
     deleteModule(module: UserModule) {
         return this.delete('module?id=' + module.id)
             .map((response) => {

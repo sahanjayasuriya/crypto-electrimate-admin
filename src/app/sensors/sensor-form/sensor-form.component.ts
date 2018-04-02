@@ -35,12 +35,14 @@ export class SensorFormComponent implements OnInit {
                 private toast: ToastrService) {
     }
 
+    //First function when call the sensor-form
     ngOnInit() {
         this.sensors = new Sensors();
         this.route.params.subscribe((params: Params) => {
         });
     }
 
+    //Add Sensor
     submit(form, event) {
         this.loading = true;
         const sensors = this.sensors;
@@ -53,6 +55,7 @@ export class SensorFormComponent implements OnInit {
             });
     }
 
+    //Cancel adding Sensors.
     cancel() {
         this.router.navigate(['../'], {relativeTo: this.route})
     }

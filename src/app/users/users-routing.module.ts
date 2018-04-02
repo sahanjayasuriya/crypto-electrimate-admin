@@ -6,6 +6,7 @@ import {UsersComponent} from "./users.component";
 
 const routes: Routes = [
   {
+    //Set paths for Users
     path: '',
     component: UsersComponent,
     data: {
@@ -13,6 +14,7 @@ const routes: Routes = [
     },
     children: [
       {
+        //Set sub path for the New User
         path: 'new',
         component: UserFormComponent,
         data: {
@@ -20,6 +22,7 @@ const routes: Routes = [
         },
       },
       {
+        //Set sub path for the User list
         path: 'list',
         component: UserListComponent,
         data: {

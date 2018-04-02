@@ -37,6 +37,7 @@ export class SensorListComponent implements OnInit, OnDestroy {
 
     }
 
+    //First function when loading the Sensor-list UI
     ngOnInit() {
         this.route.url.subscribe((url) => {
             this.setAction(url[url.length - 1].path)
@@ -54,14 +55,17 @@ export class SensorListComponent implements OnInit, OnDestroy {
             });
     }
 
+    //Unsubscribe table updates when leaving from the view
     ngOnDestroy(): void {
         this.tableUpdaterSubscriber.unsubscribe();
     }
 
+    //Select the sensor and navigate
     onRowSelect(selectedRow) {
         this.router.navigate([selectedRow.selected[0].id], {relativeTo: this.route});
     }
 
+    //Display modules using selected Batch
     batchChanged(event) {
         this.inventoryService.getSensorsList(event.value)
             .subscribe((data) => {
@@ -70,6 +74,7 @@ export class SensorListComponent implements OnInit, OnDestroy {
             });
     }
 
+    //Generate PDF
     generatePdf() {
         let doc = new jsPDF();
 
@@ -89,6 +94,7 @@ export class SensorListComponent implements OnInit, OnDestroy {
         doc.save('electrimate-module-qr-batch-' + this.rows[0].batchNumber + '.pdf');
     }
 
+    //Set the Title
     private setAction(action) {
         this.action = action;
         if (this.action) {

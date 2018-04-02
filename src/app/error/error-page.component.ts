@@ -14,6 +14,7 @@ export class ErrorPageComponent {
                 protected route: ActivatedRoute) {
     }
 
+    //Redirect to dashboard
     goHome() {
         this.router.navigate(["/dashboard"]);
     }

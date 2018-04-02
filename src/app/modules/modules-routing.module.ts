@@ -6,12 +6,15 @@ import {ModuleListComponent} from "./module-list/module-list.component";
 
 const routes: Routes = [
     {
+        //Add paths for the modules
         path: '',
         component: ModulesComponent,
         data: {
             title: 'Modules'
         },
+
         children: [
+            //Add sub path to the Add New Module
             {
                 path: 'new',
                 component: ModuleFormComponent,
@@ -19,6 +22,7 @@ const routes: Routes = [
                     title: 'Add New Module'
                 },
             },
+            //Add sub path to the Module List
             {
                 path: 'list',
                 component: ModuleListComponent,

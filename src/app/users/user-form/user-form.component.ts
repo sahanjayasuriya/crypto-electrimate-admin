@@ -58,6 +58,7 @@ export class UserFormComponent implements OnInit {
 
     }
 
+    //First function when calling the user-form
     ngOnInit() {
         this.user = new User();
         this.userModule = new UserModule();
@@ -68,8 +69,10 @@ export class UserFormComponent implements OnInit {
         });
     }
 
+    //When user click on Submit button
     submit(form, event) {
         if (!form.invalid) {
+            //If taht user is new , save details
             if (this.action === 'new') {
                 this.loading = true;
                 const user = this.user;
@@ -91,7 +94,9 @@ export class UserFormComponent implements OnInit {
                             });
                     }, (response) => {
                     });
-            } else if (this.action === 'list') {
+            }
+            //If user is on the list, update user Details
+            else if (this.action === 'list') {
                 const user = this.user;
                 const userModule = this.userModule;
                 user.id = this.id;
@@ -111,7 +116,9 @@ export class UserFormComponent implements OnInit {
                                 });
                         }, (response) => {
                         });
-                } else if (this.submitActionName === 'delete') {
+                }
+                //delete the user
+                else if (this.submitActionName === 'delete') {
                     this.loading = true;
                     this.userService.deleteUser(user)
                         .subscribe((data) => {
@@ -127,7 +134,9 @@ export class UserFormComponent implements OnInit {
                                 });
                         }, (response) => {
                         });
-                } else if (this.submitActionName === 'disable') {
+                }
+                //Disable user
+                else if (this.submitActionName === 'disable') {
                     this.loading = true;
                     this.userService.disableUser(user)
                         .subscribe((data) => {
@@ -138,7 +147,9 @@ export class UserFormComponent implements OnInit {
                             this.form.reset();
                         }, (response) => {
                         });
-                } else if (this.submitActionName === 'enable') {
+                }
+                //Enable User
+                else if (this.submitActionName === 'enable') {
                     this.loading = true;
                     this.userService.enableUser(user)
                         .subscribe((data) => {
@@ -156,19 +167,23 @@ export class UserFormComponent implements OnInit {
         }
     }
 
+    //Check the relevant button is view in the UI
     canViewButton(action) {
         return this.action === action;
     }
 
+    //Cancel user form
     cancel() {
         this.router.navigate(['../'], {relativeTo: this.route})
     }
 
+    //Submit relevant action
     submitAction(action: string) {
         this.submitActionName = action;
         this.submit(this.form, "");
     }
 
+    //Set the Title
     setAction(id: string, action: string) {
         this.id = id;
         this.action = action;

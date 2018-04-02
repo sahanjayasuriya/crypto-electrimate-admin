@@ -13,13 +13,15 @@
                             <form>
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <input style="color:#000;" type="email" class="form-control" name="inputEmail" id="inputEmail" placeholder="Email" [(ngModel)]="email" required email>
+                                        <input style="color:#000;" type="email" class="form-control" name="inputEmail"
+                                               id="inputEmail" placeholder="Email" [(ngModel)]="email" required email>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <input style="color:#000;" type="password" class="form-control" name="inputPass" id="inputPass" placeholder="Password" [(ngModel)]="password"  required>
+                                        <input style="color:#000;" type="password" class="form-control" name="inputPass"
+                                               id="inputPass" placeholder="Password" [(ngModel)]="password" required>
                                     </div>
                                 </div>
 
@@ -37,16 +39,19 @@
 
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <button type="button" (click)="onSubmit()" class="btn btn-primary btn-block btn-raised">Login</button>
+                                        <button type="button" (click)="onSubmit()"
+                                                class="btn btn-primary btn-block btn-raised">Login
+                                        </button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="card-footer">
-                      <p class="copyright text-center" style="font-size: 0.8rem">
-                        Copyright  &copy;  {{currentDate | date: 'yyyy'}} <a href="#">Team Crypto</a>, All rights reserved.
-                      </p>
+                        <p class="copyright text-center" style="font-size: 0.8rem">
+                            Copyright &copy; {{currentDate | date: 'yyyy'}} <a href="#">Team Crypto</a>, All rights
+                            reserved.
+                        </p>
                     </div>
                 </div>
             </div>
